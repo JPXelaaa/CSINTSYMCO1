@@ -1,0 +1,15 @@
+
+bruce   3
+AiELLa9   3
+isABELla31   3
+EDWARD5   3
+cLarK3   3
+dAWN8   3
+fIONa0   3
+GeORGE   3
+heAtHER   1
+jOhN5   1
+
+EDWARD5 GeORGE bruce cLarK3 dAWN8 fIONa0 AiELLa9 heAtHER isABELla31 jOhN5 
+
+EDWARD5 GeORGE dAWN8 cLarK3 bruce AiELLa9 fIONa0 isABELla31 jOhN5 heAtHER 
