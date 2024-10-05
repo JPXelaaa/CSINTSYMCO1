@@ -1,4 +1,4 @@
-/*
+/* ror
 
 [DATA STRUCTURE IMPLEMENTATION - ADJACENCY MATRIX]
 We decided to make use of an adjacency matrix to implement the DFS and BFS
@@ -26,7 +26,7 @@ before backtracking. The program marks visited vertices to avoid reprocessing
 and efficiently tracks traversal paths using the adjacency matrix. Once both
 traversals are complete, the results, including vertex degrees, BFS order, and
 DFS order, are written to an output file named "TRAVERSALS.TXT". This output
-provides a detailed view of the graph’s structure and the sequences of the
+provides a detailed view of the graphï¿½s structure and the sequences of the
 traversals.
 
 We created a 2D array to store the adjacency matrix, representing the
@@ -49,7 +49,6 @@ connections between vertices.
 
 
 
-
 int main() { 
 
   FILE *fp; // FILE POINTER
@@ -60,7 +59,11 @@ int main() {
   int vertexDegree[MAX_ROWS] = {0}; // COUNTS THE DEGREE OF EACH VERTEX ACCORDING TO INDEX
   char startVertex[MAX_NAME_LEN];
   
+
+
   printf("Input filename: ");
+    printf("yes, it works!");
+  
   scanf("%s", filename);
 
   if ((fp = fopen(filename, "r")) == NULL) {
