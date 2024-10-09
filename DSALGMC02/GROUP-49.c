@@ -43,9 +43,9 @@ connections between vertices.
 #include <string.h>
 #include <ctype.h>
 
-#include "BFS.c"
-#include "DFS.c"
-#include "FileHandling.c"
+#include "BFS.h"
+#include "DFS.h"
+#include "FileHandling.h"
 
 
 
