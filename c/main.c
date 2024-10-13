@@ -1,9 +1,25 @@
 #include <stdio.h>
+#include <string.h>
 #include "FileHandling.h"
 
 #define MAX_ROWS 50
 #define MAX_COLS 50
 #define MAX_NAME_LEN 50
+
+// Function to get the label for a given index
+void getLabel(int index, char *label) {
+    // List of labels
+    const char *labels[] = {
+        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J1", "J2", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U"
+    };
+
+    // Assign the corresponding label to the output
+    if (index >= 0 && index < sizeof(labels) / sizeof(labels[0])) {
+        strcpy(label, labels[index]);
+    } else {
+        strcpy(label, "?");  // FFor out-of-range indices
+    }
+}
 
 int main() {
     char reference[MAX_ROWS][MAX_COLS];  // Stores the node names
@@ -18,22 +34,35 @@ int main() {
         // Display number of vertices
         printf("Number of vertices: %d\n\n", numVertices);
 
-        // Example: Show Euclidean distance between two nodes (e.g., A and B)
-        int node1Index = indexCheck(reference, "A");
-        int node2Index = indexCheck(reference, "B");
-
-        if (node1Index != -1 && node2Index != -1) {
-            double distance = calculateEuclideanDistance(coords[node1Index], coords[node2Index]);
-            printf("Euclidean distance between %s and %s: %.2f\n", reference[node1Index], reference[node2Index], distance);
-        } else {
-            printf("Nodes not found in the graph.\n");
+        // Example: Show Euclidean distance between two nodes (e.g., D and P)
+        printf("Euclidean distances between connected nodes:\n");
+        for (int i = 0; i < numVertices; i++) {
+            for (int j = 0; j < numVertices; j++) {
+                if (adjMatrix[i][j] != 0) {  // If there's a connection (non-zero weight)
+                    double distance = calculateEuclideanDistance(coords[i], coords[j]);
+                    printf("Distance between %s and %s: %.2f\n", reference[i], reference[j], distance);
+                }
+            }
         }
 
         // Display the adjacency matrix with edge weights
         printf("\nAdjacency Matrix (Edge Weights):\n");
+
+        // Print column indices (header)
+        printf("    ");  // Indentation for row labels
+        char label[MAX_NAME_LEN];
         for (int i = 0; i < numVertices; i++) {
+            getLabel(i, label);           // Get the label for the current index
+            printf("%4s", label);         // Print the label with a width of 4 characters
+        }
+        printf("\n");
+
+        // Print rows with labels and matrix data
+        for (int i = 0; i < numVertices; i++) {
+            getLabel(i, label);           // Get the label for the current row
+            printf("%4s", label);         // Print the row label with a width of 4 characters
             for (int j = 0; j < numVertices; j++) {
-                printf("%d ", adjMatrix[i][j]);
+                printf("%4d", adjMatrix[i][j]);  // Print matrix elements with a width of 4 characters
             }
             printf("\n");
         }
