@@ -1,13 +1,3 @@
-/*
-[main.c CURRENT UPDATE]
-The current main.c program handles the file reading alogirthm displaying the information found
-in the GRAPHS.TXT file.
-
-Run to test.
-
-The heuristic values are to follow.
-*/
-
 #include <stdio.h>
 #include "FileHandling.h"
 
@@ -18,20 +8,25 @@ The heuristic values are to follow.
 int main() {
     char reference[MAX_ROWS][MAX_COLS];  // Stores the node names
     int adjMatrix[MAX_ROWS][MAX_COLS];   // Stores the edge weights (adjacency matrix)
-    int heuristic[MAX_ROWS];             // Stores the heuristic values
+    Coordinates coords[MAX_ROWS];        // Stores the x, y coordinates of the nodes
     int numVertices;                     // Number of vertices in the graph
 
     // Read from input file
-    if (readIDsFromFile("GRAPHS.TXT", reference, adjMatrix, heuristic, &numVertices)) {
+    if (readIDsFromFile("GRAPHS.TXT", reference, adjMatrix, coords, &numVertices)) {
         printf("File read successfully.\n");
 
         // Display number of vertices
         printf("Number of vertices: %d\n\n", numVertices);
 
-        // Display the heuristic values
-        printf("Heuristic values:\n");
-        for (int i = 0; i < numVertices; i++) {
-            printf("Node: %s, Heuristic: %d\n", reference[i], heuristic[i]);
+        // Example: Show Euclidean distance between two nodes (e.g., A and B)
+        int node1Index = indexCheck(reference, "A");
+        int node2Index = indexCheck(reference, "B");
+
+        if (node1Index != -1 && node2Index != -1) {
+            double distance = calculateEuclideanDistance(coords[node1Index], coords[node2Index]);
+            printf("Euclidean distance between %s and %s: %.2f\n", reference[node1Index], reference[node2Index], distance);
+        } else {
+            printf("Nodes not found in the graph.\n");
         }
 
         // Display the adjacency matrix with edge weights
