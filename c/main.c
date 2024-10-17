@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "FileHandling.h"
+#include "A*.h"
 
 #define MAX_ROWS 50
 #define MAX_COLS 50
@@ -26,6 +27,8 @@ int main() {
     int adjMatrix[MAX_ROWS][MAX_COLS];   // Stores the edge weights (adjacency matrix)
     Coordinates coords[MAX_ROWS];        // Stores the x, y coordinates of the nodes
     int numVertices;                     // Number of vertices in the graph
+    char startNode[MAX_NAME_LEN], goalNode[MAX_NAME_LEN];
+    char startIndex, goalIndex;
 
     // Read from input file
     if (readIDsFromFile("GRAPHS.TXT", reference, adjMatrix, coords, &numVertices)) {
@@ -39,7 +42,7 @@ int main() {
         for (int i = 0; i < numVertices; i++) {
             for (int j = 0; j < numVertices; j++) {
                 if (adjMatrix[i][j] != 0) {  // If there's a connection (non-zero weight)
-                    double distance = calculateEuclideanDistance(coords[i], coords[j]);
+                    double distance = calculateEuclideanDistance(coords[i], coords[j]); 
                     printf("Distance between %s and %s: %.2f\n", reference[i], reference[j], distance);
                 }
             }
@@ -66,6 +69,27 @@ int main() {
             }
             printf("\n");
         }
+         
+        printf("Enter the start node: ");
+        scanf("%s", startNode);
+        printf("Enter the goal node: ");
+        scanf("%s", goalNode);
+
+        // Find indices of the start and goal nodes
+        startIndex = indexCheck(reference, startNode);
+        goalIndex = indexCheck(reference, goalNode);
+
+        if (startIndex == -1 || goalIndex == -1) {
+            printf("Invalid start or goal node.\n");
+            return 1;
+        }
+
+        if (startIndex == -1 || goalIndex == -1) {
+            printf("Invalid start or goal node.\n");
+            return 1;
+        }
+        // Run A* algorithm
+        aStar(startIndex, goalIndex, adjMatrix, coords, numVertices);
     } else {
         printf("Error reading from file.\n");
     }
