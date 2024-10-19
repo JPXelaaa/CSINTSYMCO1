@@ -73,8 +73,9 @@ void greedyBestFirstSearch(int startIndex, int goal, int adjMatrix[MAX_ROWS][MAX
     int openList[MAX_ROWS], closedList[MAX_ROWS] = {0}; //openList for neighbors, closedList for visited
     int openListCount = 0;
     int currentNode;
-    int minIndex = 0; // store index of node in openList w smallest heuristic
-    double minDistance; // store smallest heuristic value sa lahat ng nodes na nasa openList
+    int minIndex = 0; // assigns index of node in openList w smallest heuristic
+    double minDistance; // assigns smallest heuristic value sa lahat ng nodes na nasa openList
+    double distance;
 
     openList[openListCount++] = startIndex; // u put da startIndex in da openList
 
@@ -83,6 +84,17 @@ void greedyBestFirstSearch(int startIndex, int goal, int adjMatrix[MAX_ROWS][MAX
 
     while (openListCount > 0){
         // Find node sa openList w lowest heuristic value
-        minDistance = calculateEuclideanDistance(coords[openList[0]], coords[goal]);
+        minDistance = calculateEuclideanDistance(coords[openList[0]], coords[goal]); // heuristic of start node
+
+        for(int i = 1; i < openListCount; i++){
+            distance = calculateEuclideanDistance(coords[openList[i]], coords[goal]);
+            if (distance < minDistance){
+                minDistance = distance; 
+                minIndex = i;
+            }
+        }
+        // set current node to the node w the smallest heuristic
+        currentNode = openList[minIndex];
+
     }
 }
