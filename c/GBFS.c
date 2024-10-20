@@ -78,11 +78,11 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
     double minDistance; // smallest heuristic value in openList
     double distance;
 
-	int i, j;
-	int finalpath[MAX_ROWS]; //contains the final path 
+    int i, j;
+    int finalpath[MAX_ROWS]; //contains the final path 
     int pathLength = 0; //for counting the number of nodes in the final path
 	
-	openList[openListCount++] = startIndex; // u put da startIndex in da openList
+    openList[openListCount++] = startIndex; // u put da startIndex in da openList
     parent[startIndex] = -1; // start node has no parent
     
     while (openListCount > 0) 
@@ -104,8 +104,7 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
         currentNode = openList[minIndex];
 
         // check if we have reached the goal
-        if (currentNode == goalIndex) 
-		{
+        if (currentNode == goalIndex) {
             //printing of the path
             for (j = goalIndex; j != -1; j = parent[j]) {
                 path[pathLength++] = j; //collects the nodes of the path from the goal back to the start (backtracking toh in a way)
@@ -119,8 +118,7 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
 
         // you place da currentNode from openList to closedList
         closedList[currentNode] = 1; //make the 0 to 1 (boolean)
-        for (i = minIndex; i < openListCount - 1; i++) 
-		{
+        for (i = minIndex; i < openListCount - 1; i++) {
             openList[i] = openList[i + 1]; // remove da node from openList by moving the values to the left 
         }
         openListCount--;
