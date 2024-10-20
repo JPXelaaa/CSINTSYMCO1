@@ -75,7 +75,7 @@ int main() {
         printf("Enter the goal node: ");
         scanf("%s", goalNode);
 
-        // Find indices of the start and goal nodes
+        // Find indices of the start and goal nodes using the reference array
         startIndex = indexCheck(reference, startNode);
         goalIndex = indexCheck(reference, goalNode);
 
@@ -88,8 +88,9 @@ int main() {
             printf("Invalid start or goal node.\n");
             return 1;
         }
+
         // Run A* algorithm
-        aStar(startIndex, goalIndex, adjMatrix, coords, numVertices);
+        aStar(startIndex, goalIndex, adjMatrix, coords, numVertices, reference);
     } else {
         printf("Error reading from file.\n");
     }
