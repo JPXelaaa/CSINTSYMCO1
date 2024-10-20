@@ -12,7 +12,7 @@ typedef struct {
 } Coordinates;
 
 // Function to check the index of a node in the reference array
-int indexCheck(char reference[MAX_ROWS][MAX_COLS], char temp[MAX_NAME_LEN]);
+int indexCheck(char reference[MAX_ROWS][MAX_COLS], char temp[MAX_NAME_LEN], int count);
 
 // Function to calculate Euclidean distance between two nodes
 double calculateEuclideanDistance(Coordinates node1, Coordinates node2);
