@@ -69,32 +69,67 @@ function heuristic(node, goal_node)
 
 
 
-void greedyBestFirstSearch(int startIndex, int goal, int adjMatrix[MAX_ROWS][MAX_COLS], Coordinates coords[MAX_ROWS], int numVertices){
-    int openList[MAX_ROWS], closedList[MAX_ROWS] = {0}; //openList for neighbors, closedList for visited
+void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS][MAX_COLS], Coordinates coords[MAX_ROWS], int numVertices) {
+    int openList[MAX_ROWS], closedList[MAX_ROWS] = {0}; // openList for neighbors, closedList for visited
+    int parent[MAX_ROWS]; // to keep track of the path
     int openListCount = 0;
     int currentNode;
-    int minIndex = 0; // assigns index of node in openList w smallest heuristic
-    double minDistance; // assigns smallest heuristic value sa lahat ng nodes na nasa openList
+    int minIndex = 0; // index of node in openList with smallest heuristic
+    double minDistance; // smallest heuristic value in openList
     double distance;
 
-    openList[openListCount++] = startIndex; // u put da startIndex in da openList
+	int i, j;
+	int finalpath[MAX_ROWS]; //contains the final path 
+    int pathLength = 0; //for counting the number of nodes in the final path
+	
+	openList[openListCount++] = startIndex; // u put da startIndex in da openList
+    parent[startIndex] = -1; // start node has no parent
+    
+    while (openListCount > 0) 
+	{
+        // Find node in openList with the lowest heuristic value
+        minDistance = calculateEuclideanDistance(coords[openList[0]], coords[goalIndex]); // heuristic of start node
+        minIndex = 0;
 
-
-    printf("Path: ");
-
-    while (openListCount > 0){
-        // Find node sa openList w lowest heuristic value
-        minDistance = calculateEuclideanDistance(coords[openList[0]], coords[goal]); // heuristic of start node
-
-        for(int i = 1; i < openListCount; i++){
-            distance = calculateEuclideanDistance(coords[openList[i]], coords[goal]);
-            if (distance < minDistance){
+        for (i = 1; i < openListCount; i++) 
+		{
+            distance = calculateEuclideanDistance(coords[openList[i]], coords[goalIndex]);
+            if (distance < minDistance) {
                 minDistance = distance; 
                 minIndex = i;
             }
         }
+
         // set current node to the node w the smallest heuristic
         currentNode = openList[minIndex];
 
+        // check if we have reached the goal
+        if (currentNode == goalIndex) 
+		{
+            //printing of the path
+            for (j = goalIndex; j != -1; j = parent[j]) {
+                path[pathLength++] = j; //collects the nodes of the path from the goal back to the start (backtracking toh in a way)
+            }
+            for (i = pathLength - 1; i >= 0; i--) {
+                printf("%d ", path[i]); // should print them in the correct order now 
+            }
+            printf("\n");
+            return; //path found wahoo
+        }
+
+        // you place da currentNode from openList to closedList
+        closedList[currentNode] = 1; //make the 0 to 1 (boolean)
+        for (i = minIndex; i < openListCount - 1; i++) 
+		{
+            openList[i] = openList[i + 1]; // remove da node from openList by moving the values to the left 
+        }
+        openListCount--;
+        
+        //exploring da neighbors of the current node nlang here loop yes 
+        
     }
+    
+    
+    
+    return -1 // if no goal node is found
 }
