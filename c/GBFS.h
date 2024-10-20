@@ -3,6 +3,6 @@
 
 #include "FileHandling.h"
 
-void greedyBestFirstSearch(int start, int goal, int adjMatrix[MAX_ROWS][MAX_COLS], Coordinates coords[MAX_ROWS], int numVertices);
+void greedyBestFirstSearch(int start, int goal, int adjMatrix[MAX_ROWS][MAX_COLS], Coordinates coords[MAX_ROWS], int numVertices, char reference[MAX_ROWS][MAX_COLS]);
 
 #endif
