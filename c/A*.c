@@ -1,9 +1,9 @@
 /*
-n' refers to the child of n I believe?
 
-GAAAH
+it woRKSS HENZLEY !! THNK U 
 
-Algorithm A-Star
+
+Algorithm A-Star Pseudo Code
 
 Initialize OPEN list (to the empty list)
 Initialize CLOSED list (to the empty list)
@@ -42,6 +42,7 @@ haven’t found the solution, therefore one doesn’t exist)
 Reference Link:
 https://robotics.caltech.edu/wiki/images/e/e0/Astar.pdf
 */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -51,7 +52,7 @@ https://robotics.caltech.edu/wiki/images/e/e0/Astar.pdf
 
 #define MAX_NODES 50
 
-void printSolutionPath(Node* goalNode, char reference[MAX_ROWS][MAX_COLS]) {
+void printSolutionPath(Node* goalNode, char reference[MAX_ROWS][MAX_COLS], float totalCost) {
      if (goalNode == NULL) {
         printf("No path found.\n");
         return;
@@ -76,6 +77,10 @@ void printSolutionPath(Node* goalNode, char reference[MAX_ROWS][MAX_COLS]) {
             printf(" -> ");
     }
     printf("\n");
+
+    float minuteTotalCost = totalCost/60;
+
+    printf("Total actual cost: %.2f (%.2f minutes)\n", totalCost, minuteTotalCost);
 }
 
 void aStar(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS][MAX_COLS], 
@@ -125,18 +130,12 @@ void aStar(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS][MAX_COLS],
         // Condition statement for if the current node is the goal, return the solution
         if (currentNode == goalIndex) {
             printf("Path found to the goal node.\n");
-            printSolutionPath(&nodeData[currentNode], reference);
+            printSolutionPath(&nodeData[currentNode], reference, nodeData[currentNode].gCost);
             return;
         }
-    /*
-    The other half of the code below will be responsible for generating an processing the successor nodes of the current 
-    node being evaluted.
-
-
-    */
     // This loop will generate over all node successors (neighbor nodes connected by edges)
         for (int i = 0; i < numVertices; i++) {
-        //--------------------------------------I-Cannot-Think-Anymore-From:Philip-------------------------I will be back
+       
             if (adjMatrix[currentNode][i] > 0) { // There is an edge
                 int successor = i; 
                     // If node is in the CLOSED list, skip it
@@ -159,22 +158,25 @@ void aStar(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS][MAX_COLS],
                     for (int j = 0; j < openCount; j++) {
                         if (openList[j] == successor) {
                             inOpen = 1;
+                              // If successor is not in the OPEN list or found a better path (lower fCost)
+                            if (fCost < nodeData[successor].fCost) {
+                                nodeData[successor].gCost = gCost;
+                                nodeData[successor].hCost = hCost;
+                                nodeData[successor].fCost = fCost;
+                                nodeData[successor].parent = &nodeData[currentNode];
+                            }
                             break;
                         }
                     }
-                    // If successor is not in the OPEN list or found a better path (lower fCost)
-                    if (!inOpen || fCost < nodeData[successor].fCost) {
+                    // Add the successor to the OPEN list if it's not there
+                    if (!inOpen) {
                         nodeData[successor].gCost = gCost;
                         nodeData[successor].hCost = hCost;
                         nodeData[successor].fCost = fCost;
                         nodeData[successor].parent = &nodeData[currentNode];
-
-                    // Add the successor to the OPEN list if it's not there
-                    if (!inOpen) {
                         openList[openCount++] = successor;
                     }
-                       
-            }
+            }   
        }
     }
     printf("No Goal Node Found!"); // IF NO GOAL NODE IS FOUND

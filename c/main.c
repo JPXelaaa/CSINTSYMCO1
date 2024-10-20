@@ -23,20 +23,10 @@ void getLabel(int index, char *label) {
     }
 }
 
-int main() {
-    char reference[MAX_ROWS][MAX_COLS];  // Stores the node names
-    int adjMatrix[MAX_ROWS][MAX_COLS];   // Stores the edge weights (adjacency matrix)
-    Coordinates coords[MAX_ROWS];        // Stores the x, y coordinates of the nodes
-    int numVertices;                     // Number of vertices in the graph
-    char startNode[MAX_NAME_LEN], goalNode[MAX_NAME_LEN];
-    char startIndex, goalIndex;
-
-    // Read from input file
-    if (readIDsFromFile("GRAPHS.TXT", reference, adjMatrix, coords, &numVertices)) {
-        printf("File read successfully.\n");
-
-        // Display number of vertices
-        printf("Number of vertices: %d\n\n", numVertices);
+void sampleData(int adjMatrix[MAX_ROWS][MAX_COLS], 
+                Coordinates coords[MAX_ROWS], 
+                int numVertices, 
+                char reference[MAX_ROWS][MAX_COLS]){
 
         // Example: Show Euclidean distance between two nodes (e.g., D and P)
         printf("Euclidean distances between connected nodes:\n");
@@ -48,7 +38,6 @@ int main() {
                 }
             }
         }
-
         // Display the adjacency matrix with edge weights
         printf("\nAdjacency Matrix (Edge Weights):\n");
 
@@ -70,6 +59,22 @@ int main() {
             }
             printf("\n");
         }
+}
+
+int main() {
+    char reference[MAX_ROWS][MAX_COLS];  // Stores the node names
+    int adjMatrix[MAX_ROWS][MAX_COLS];   // Stores the edge weights (adjacency matrix)
+    Coordinates coords[MAX_ROWS];        // Stores the x, y coordinates of the nodes
+    int numVertices;                     // Number of vertices in the graph
+    char startNode[MAX_NAME_LEN], goalNode[MAX_NAME_LEN];
+    char startIndex, goalIndex;
+
+    // Read from input file
+    if (readIDsFromFile("GRAPHS.TXT", reference, adjMatrix, coords, &numVertices)) {
+        printf("File read successfully.\n");
+
+        // Display number of vertices
+        printf("Number of vertices: %d\n\n", numVertices);
          
         printf("Enter the start node: ");
         scanf("%s", startNode);
@@ -85,14 +90,26 @@ int main() {
             return 1;
         }
 
-        if (startIndex == -1 || goalIndex == -1) {
-            printf("Invalid start or goal node.\n");
-            return 1;
-        }
+        printf("\n================BLIND SEARCH===============\n");
+        printf("\n-------------------------------------------\n");
+        printf("\nBFS Algorithm Pathing: \n\n");
+        //BFS(); // ---> Please input BFS algorithm when finished here <---
+        printf("\n-------------------------------------------\n");
 
-        // Run A* algorithm
-        aStar(startIndex, goalIndex, adjMatrix, coords, numVertices, reference);
-        greedyBestFirstSearch(startIndex, goalIndex, adjMatrix, coords, numVertices, reference);
+        printf("\nDFS Algorithm Pathing: \n\n");
+        //DFS(); // ---> Please input DFS algorithm when finished here <---
+        printf("\n-------------------------------------------\n");
+
+        printf("\n=============HEAURISTIC SEARCH=============\n");
+        printf("\n-------------------------------------------\n");
+        printf("\nA* Algorithm Pathing: \n\n");
+        aStar(startIndex, goalIndex, adjMatrix, coords, numVertices, reference); // A* STAR ALGORITHM
+        printf("\n-------------------------------------------\n");
+
+        printf("\nGreedy Best First Search Algorithm Pathing: \n\n");
+        greedyBestFirstSearch(startIndex, goalIndex, adjMatrix, coords, numVertices, reference); // GBFS ALGORITHM
+        printf("\n-------------------------------------------\n");
+        
         
     } else {
         printf("Error reading from file.\n");

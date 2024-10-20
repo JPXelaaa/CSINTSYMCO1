@@ -13,6 +13,14 @@ int indexCheck(char reference[MAX_ROWS][MAX_COLS], char temp[MAX_NAME_LEN]) {
     return -1;
 }
 
+char reverseIndexCheck(char reference[MAX_ROWS][MAX_COLS], int temp) {
+    for (int i = 0; i < MAX_ROWS; i++) {
+        if (temp == i){
+            return reference[i][0];
+        }
+    }
+    return -1;
+}
 // Function to calculate Euclidean distance between two nodes
 double calculateEuclideanDistance(Coordinates node1, Coordinates node2) {
     return sqrt(pow(node2.x - node1.x, 2) + pow(node2.y - node1.y, 2));

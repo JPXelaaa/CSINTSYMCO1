@@ -14,6 +14,9 @@ typedef struct {
 // Function to check the index of a node in the reference array
 int indexCheck(char reference[MAX_ROWS][MAX_COLS], char temp[MAX_NAME_LEN]);
 
+// Function to check the node label of a given integer
+char reverseIndexCheck(char reference[MAX_ROWS][MAX_COLS], int temp);
+
 // Function to calculate Euclidean distance between two nodes
 double calculateEuclideanDistance(Coordinates node1, Coordinates node2);
 

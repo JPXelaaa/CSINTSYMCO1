@@ -6,7 +6,7 @@
 
 #define MAX_NODES 50
 
-
+// good job !! <3 gets ko ung code kahet ganyan comments -phlip
 
 void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS][MAX_COLS], Coordinates coords[MAX_ROWS], int numVertices, char reference[MAX_ROWS][MAX_COLS]) {
     int openList[MAX_ROWS], closedList[MAX_ROWS] = {0}; // openList for neighbors, closedList for visited
@@ -18,22 +18,26 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
     double distance;
 
     //Variables por da calculation of da cost path
-    int totalCostPath = 0;
+    float totalCostPath = 0;
     int fromNode;
     int toNode;
-
+    float minutesTotalCostPath;
 
 	int i, j;
 	int finalPath[MAX_ROWS]; //contains the final path 
     int pathLength = 0; //for counting the number of nodes in the final path
     int isInOpenList = 0;
 
+    char label; // To be used to show the label of the node you are currently in (FOR READABILITY)
 	
 	openList[openListCount++] = startIndex; // u put da startIndex in da openList
     parent[startIndex] = -1; // start node has no parent
 
     printf("Debug: openListCount = %d\n", openListCount);
-    printf("Start Index: %d, Goal Index: %d\n", startIndex, goalIndex);
+
+    label = reverseIndexCheck(reference, startIndex);
+
+    printf("Start Index: %c, Goal Index: %d\n", label, goalIndex);
     
     while (openListCount > 0) {
         // Find node in openList with the lowest heuristic value
@@ -50,7 +54,9 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
 
         // set current node to the node w the smallest heuristic
         currentNode = openList[minIndex];
-        printf("Current Node: %d, Min Distance: %.2f\n", currentNode, minDistance);
+        label = reverseIndexCheck(reference, currentNode); // Changed the current node to display label
+
+        printf("Current Node: %c, Min Distance: %.2f\n", label, minDistance);
 
         // check if we have reached the goal
         if (currentNode == goalIndex) {
@@ -58,7 +64,7 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
             for (j = goalIndex; j != -1; j = parent[j]) {
                 finalPath[pathLength++] = j; //collects the nodes of the path from the goal back to the start (backtracking toh in a way)
             }
-            printf("Final Path: ");
+            printf("\nFinal Path: ");
             for (i = pathLength - 1; i >= 0; i--) {
                 printf("%s ", reference[finalPath[i]]); // should print them in the correct order now in letters (wah so cool)
             }
@@ -72,7 +78,8 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
                 totalCostPath += adjMatrix[fromNode][toNode];
             }
 
-            printf("Total Cost of the Path: %d\n", totalCostPath);
+            minutesTotalCostPath = totalCostPath/60;
+            printf("\nTotal Cost of the Path: %.2f seconds (%.2f minutes)\n", totalCostPath, minutesTotalCostPath);
             return; //path found wahoo
         }
 
@@ -103,5 +110,5 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
         }
     }
     
-    printf("goal aint found");
+    printf("goal aint found /in Chrytel voice"); // for accuracy - philip
 }
