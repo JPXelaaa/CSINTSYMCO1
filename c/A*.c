@@ -153,17 +153,26 @@ void aStar(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS][MAX_COLS],
                     int gCost = nodeData[currentNode].gCost + adjMatrix[currentNode][successor];
                     int hCost = calculateEuclideanDistance(coords[successor], coords[goalIndex]);
                     int fCost = gCost + hCost;
+             
+                    //check if successor is in the open list:
+                    int inOpen = 0;
+                    for (int j = 0; j < openCount; j++) {
+                        if (openList[j] == successor) {
+                            inOpen = 1;
+                            break;
+                        }
+                    }
+                    // If successor is not in the OPEN list or found a better path (lower fCost)
+                    if (!inOpen || fCost < nodeData[successor].fCost) {
+                        nodeData[successor].gCost = gCost;
+                        nodeData[successor].hCost = hCost;
+                        nodeData[successor].fCost = fCost;
+                        nodeData[successor].parent = &nodeData[currentNode];
 
-                    /*
-                    TO BE IMPLEMENTED:
-
-                    Check if the successor is in the OPEN LIST
-                        - Check if the new fCost is better (fCost < nodeData[successor].fCost), if so, update nodeData
-                        - 
-                    If not in OPEN LIST, add the successor to OPEN list
-
-                    The end!
-                        */
+                    // Add the successor to the OPEN list if it's not there
+                    if (!inOpen) {
+                        openList[openCount++] = successor;
+                    }
                        
             }
        }
