@@ -78,39 +78,44 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
     double minDistance; // smallest heuristic value in openList
     double distance;
 
-    int i, j;
-    int finalpath[MAX_ROWS]; //contains the final path 
+	int i, j;
+	int finalPath[MAX_ROWS]; //contains the final path 
     int pathLength = 0; //for counting the number of nodes in the final path
+    int isInOpenList = 0;
 	
-    openList[openListCount++] = startIndex; // u put da startIndex in da openList
+	openList[openListCount++] = startIndex; // u put da startIndex in da openList
     parent[startIndex] = -1; // start node has no parent
+
+    printf("Debug: openListCount = %d\n", openListCount);
+    printf("Path: ");
     
-    while (openListCount > 0) 
-	{
+    while (openListCount > 0) {
         // Find node in openList with the lowest heuristic value
         minDistance = calculateEuclideanDistance(coords[openList[0]], coords[goalIndex]); // heuristic of start node
         minIndex = 0;
 
-        for (i = 1; i < openListCount; i++) 
-		{
+        for (i = 1; i < openListCount; i++) {
             distance = calculateEuclideanDistance(coords[openList[i]], coords[goalIndex]);
             if (distance < minDistance) {
-                minDistance = distance; 
+                minDistance = distance;
                 minIndex = i;
             }
         }
 
         // set current node to the node w the smallest heuristic
         currentNode = openList[minIndex];
+        printf("Debug: currentNode = %d\n", currentNode);
+        printf("Debug: adjMatrix[%d][%d] = %d\n", currentNode, i, adjMatrix[currentNode][i]);
 
         // check if we have reached the goal
-        if (currentNode == goalIndex) {
+        if (currentNode == goalIndex) 
+		{
             //printing of the path
             for (j = goalIndex; j != -1; j = parent[j]) {
-                path[pathLength++] = j; //collects the nodes of the path from the goal back to the start (backtracking toh in a way)
+                finalPath[pathLength++] = j; //collects the nodes of the path from the goal back to the start (backtracking toh in a way)
             }
             for (i = pathLength - 1; i >= 0; i--) {
-                printf("%d ", path[i]); // should print them in the correct order now 
+                printf("%d ", finalPath[i]); // should print them in the correct order now 
             }
             printf("\n");
             return; //path found wahoo
@@ -123,11 +128,27 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
         }
         openListCount--;
         
-        //exploring da neighbors of the current node nlang here loop yes 
+        //exploring da neighbors of the current node nlang here loop yes
         
+        for(i = 0; i < numVertices; i++){
+            if(adjMatrix[currentNode][i] != 0 && !closedList[i]){
+                // add da neighbor sa openList if wala pa don
+                isInOpenList = 0;
+                for(int j = 0; j < openListCount; j++){
+                    if (openList[j] == i){
+                        isInOpenList = 1;
+                        break;
+                    }
+                }
+                if(!isInOpenList){
+                    openList[openListCount++] = i;
+                }
+            }
+        }
     }
     
     
     
-    return -1 // if no goal node is found
+    // return -1; // if no goal node is found
+    printf("goal aint found");
 }
