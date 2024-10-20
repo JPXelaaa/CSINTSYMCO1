@@ -87,7 +87,8 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
     parent[startIndex] = -1; // start node has no parent
 
     printf("Debug: openListCount = %d\n", openListCount);
-    printf("Path: ");
+    printf("Path: \n");
+    printf("Start Index: %d, Goal Index: %d\n", startIndex, goalIndex);
     
     while (openListCount > 0) {
         // Find node in openList with the lowest heuristic value
@@ -104,16 +105,15 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
 
         // set current node to the node w the smallest heuristic
         currentNode = openList[minIndex];
-        printf("Debug: currentNode = %d\n", currentNode);
-        printf("Debug: adjMatrix[%d][%d] = %d\n", currentNode, i, adjMatrix[currentNode][i]);
+        printf("Current Node: %d, Min Distance: %.2f\n", currentNode, minDistance);
 
         // check if we have reached the goal
-        if (currentNode == goalIndex) 
-		{
+        if (currentNode == goalIndex) {
             //printing of the path
             for (j = goalIndex; j != -1; j = parent[j]) {
                 finalPath[pathLength++] = j; //collects the nodes of the path from the goal back to the start (backtracking toh in a way)
             }
+            printf("Final Path: ");
             for (i = pathLength - 1; i >= 0; i--) {
                 printf("%d ", finalPath[i]); // should print them in the correct order now 
             }
@@ -142,6 +142,7 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
                 }
                 if(!isInOpenList){
                     openList[openListCount++] = i;
+                    parent[i] = currentNode; // u set the parent of the current node, DIS WAS THE ERROR😭
                 }
             }
         }
