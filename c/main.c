@@ -2,6 +2,7 @@
 #include <string.h>
 #include "FileHandling.h"
 #include "A*.h"
+#include "GBFS.h"
 
 #define MAX_ROWS 50
 #define MAX_COLS 50
@@ -91,6 +92,8 @@ int main() {
 
         // Run A* algorithm
         aStar(startIndex, goalIndex, adjMatrix, coords, numVertices, reference);
+        greedyBestFirstSearch(startIndex, goalIndex, adjMatrix, coords, numVertices, reference);
+        
     } else {
         printf("Error reading from file.\n");
     }
