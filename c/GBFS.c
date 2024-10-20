@@ -78,16 +78,22 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
     double minDistance; // smallest heuristic value in openList
     double distance;
 
+    //Variables por da calculation of da cost path
+    int totalCostPath = 0;
+    int fromNode;
+    int toNode;
+
+
 	int i, j;
 	int finalPath[MAX_ROWS]; //contains the final path 
     int pathLength = 0; //for counting the number of nodes in the final path
     int isInOpenList = 0;
+
 	
 	openList[openListCount++] = startIndex; // u put da startIndex in da openList
     parent[startIndex] = -1; // start node has no parent
 
     printf("Debug: openListCount = %d\n", openListCount);
-    printf("Path: \n");
     printf("Start Index: %d, Goal Index: %d\n", startIndex, goalIndex);
     
     while (openListCount > 0) {
@@ -115,9 +121,19 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
             }
             printf("Final Path: ");
             for (i = pathLength - 1; i >= 0; i--) {
-                printf("%d ", finalPath[i]); // should print them in the correct order now 
+                printf("%d ", finalPath[i]); // should print them in the correct order now
             }
             printf("\n");
+
+            // Calculate the total cost of the path
+            totalCostPath = 0;
+            for (i = pathLength - 1; i > 0; i--) {
+                fromNode = finalPath[i];
+                toNode = finalPath[i - 1];
+                totalCostPath += adjMatrix[fromNode][toNode];
+            }
+
+            printf("Total Cost of the Path: %d\n", totalCostPath);
             return; //path found wahoo
         }
 
