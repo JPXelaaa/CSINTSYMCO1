@@ -4,8 +4,8 @@
 #include "FileHandling.h"
 
 // Function to check the index of a node in the reference array
-int indexCheck(char reference[MAX_ROWS][MAX_COLS], char temp[MAX_NAME_LEN]) {
-    for (int i = 0; i < MAX_ROWS; i++) {
+int indexCheck(char reference[MAX_ROWS][MAX_COLS], char temp[MAX_NAME_LEN], int count) {
+    for (int i = 0; i < count; i++) {
         if (strcmp(reference[i], temp) == 0) {
             return i;
         }
@@ -44,7 +44,7 @@ int readIDsFromFile(char *filename, char reference[MAX_ROWS][MAX_COLS],
     while (fgets(line, sizeof(line), fp)) {
         if (sscanf(line, "%s %d %d %d %s", node, &x, &y, &edgeWeight, adjNode) == 5) {
             // Check if the node already exists in the reference array
-            if (indexCheck(reference, node) == -1) {
+            if (indexCheck(reference, node, count) == -1) {
                 strcpy(reference[count], node);   // Store the node name
                 coords[count].x = x;             // Store the x-coordinate
                 coords[count].y = y;             // Store the y-coordinate
@@ -68,8 +68,8 @@ int readIDsFromFile(char *filename, char reference[MAX_ROWS][MAX_COLS],
         }
 
         if (sscanf(line, "%s %*d %*d %d %s", node, &edgeWeight, adjNode) == 3) {
-            int nodeIndex = indexCheck(reference, node);
-            int adjIndex = indexCheck(reference, adjNode);
+            int nodeIndex = indexCheck(reference, node, count);
+            int adjIndex = indexCheck(reference, adjNode, count);
 
             if (nodeIndex != -1 && adjIndex != -1) {
                 adjMatrix[nodeIndex][adjIndex] = edgeWeight;  // Store the edge weight in the matrix
