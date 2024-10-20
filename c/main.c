@@ -30,6 +30,7 @@ int main() {
     int numVertices;                     // Number of vertices in the graph
     char startNode[MAX_NAME_LEN], goalNode[MAX_NAME_LEN];
     char startIndex, goalIndex;
+    int count = 0;
 
     // Read from input file
     if (readIDsFromFile("GRAPHS.TXT", reference, adjMatrix, coords, &numVertices)) {
@@ -77,8 +78,8 @@ int main() {
         scanf("%s", goalNode);
 
         // Find indices of the start and goal nodes using the reference array
-        startIndex = indexCheck(reference, startNode);
-        goalIndex = indexCheck(reference, goalNode);
+        startIndex = indexCheck(reference, startNode, count);
+        goalIndex = indexCheck(reference, goalNode, count);
 
         if (startIndex == -1 || goalIndex == -1) {
             printf("Invalid start or goal node.\n");
