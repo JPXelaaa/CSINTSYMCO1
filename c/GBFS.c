@@ -37,7 +37,7 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
 
     printf("Debug: openListCount = %d\n", openListCount);
 
-    printf("Start Index: %s, Goal Index: %d\n", reference[startIndex], goalIndex);
+    printf("Start Index: %s, Goal Index: %s\n", reference[startIndex], reference[goalIndex]);
     
     while (openListCount > 0) {
         // Find node in openList with the lowest heuristic value

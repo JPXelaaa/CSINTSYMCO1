@@ -92,6 +92,7 @@ bool checkAdmissibility(int adjMatrix[MAX_ROWS][MAX_COLS],
                     float difference = actualCost-heuristic;
                     printf("Heuristic from %c to %c is admissible: h = %.2f, actual cost = %d, difference = %.2f\n", labelA, labelB, heuristic, actualCost, difference);
                 }
+                
             }
         }
     }
