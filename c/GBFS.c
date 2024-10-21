@@ -8,7 +8,11 @@
 
 // good job !! <3 gets ko ung code kahet ganyan comments -phlip
 
-void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS][MAX_COLS], Coordinates coords[MAX_ROWS], int numVertices, char reference[MAX_ROWS][MAX_COLS]) {
+void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS][MAX_COLS], 
+                           Coordinates coords[MAX_ROWS], 
+                           int numVertices, 
+                           char reference[MAX_ROWS][MAX_COLS]) {
+                            
     int openList[MAX_ROWS], closedList[MAX_ROWS] = {0}; // openList for neighbors, closedList for visited
     int parent[MAX_ROWS]; // to keep track of the path
     int openListCount = 0;
@@ -27,17 +31,13 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
 	int finalPath[MAX_ROWS]; //contains the final path 
     int pathLength = 0; //for counting the number of nodes in the final path
     int isInOpenList = 0;
-
-    char label; // To be used to show the label of the node you are currently in (FOR READABILITY)
 	
 	openList[openListCount++] = startIndex; // u put da startIndex in da openList
     parent[startIndex] = -1; // start node has no parent
 
     printf("Debug: openListCount = %d\n", openListCount);
 
-    label = reverseIndexCheck(reference, startIndex);
-
-    printf("Start Index: %c, Goal Index: %d\n", label, goalIndex);
+    printf("Start Index: %s, Goal Index: %d\n", reference[startIndex], goalIndex);
     
     while (openListCount > 0) {
         // Find node in openList with the lowest heuristic value
@@ -54,9 +54,7 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
 
         // set current node to the node w the smallest heuristic
         currentNode = openList[minIndex];
-        label = reverseIndexCheck(reference, currentNode); // Changed the current node to display label
-
-        printf("Current Node: %c, Min Distance: %.2f\n", label, minDistance);
+        printf("Current Node: %s, Min Distance: %.2f\n", reference[currentNode], minDistance);
 
         // check if we have reached the goal
         if (currentNode == goalIndex) {

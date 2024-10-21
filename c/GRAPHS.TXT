@@ -1,72 +1,72 @@
 22
-A 140 -2 75 B
-A 140 -2 170 T
-B 130 -2 75 A  # Symmetry for A -> B
-B 130 -2 95 C
-B 130 -2 100 R
-C 110 -10 95 B  # Symmetry for B -> C
-C 110 -10 50 D
-C 110 -10 60 R
-D  23 -40 50 C  # Symmetry for C -> D
-D  23 -40 45 E
-D  23 -40 80 P
-E  8 5 45 D  # Symmetry for D -> E
-E  8 5 90 O
-E  8 5 70 P
-E  8 5 30 F
-F -5 5 30 E  # Symmetry for E -> F
-F -5 5 40 O
-F -5 5 35 G
-G -30 5 35 F  # Symmetry for F -> G
-G -30 5 80 I
-G -30 5 85 H
-H -30 -43 85 G  # Symmetry for G -> H
+A 140 -2 40 B  
+A 140 -2 145 T
+B 130 -2 40 A  # Symmetry for A -> B --- 1
+B 130 -2 75 C
+B 130 -2 124 R
+C 110 -10 75 B  # Symmetry for B -> C --- 9
+C 110 -10 150 D
+C 110 -10 120 R
+D  23 -40 150 C  # Symmetry for C -> D --- 34
+D  23 -40 96 E
+D  23 -40 140 P
+E  8 5 96 D  # Symmetry for D -> E --- 21
+E  8 5 45 F
+E  8 5 100 O
+E  8 5 130 P
+F -5 5 45 E  # Symmetry for E -> F --- 2
+F -5 5 70 G
+F -5 5 106 O
+G -30 5 70 F  # Symmetry for F -> G --- 8
+G -30 5 86 H
+G -30 5 62 I
+H -30 -43 86 G  # Symmetry for G -> H --- 15
 H -30 -43 90 I
-I -50 5 80 G  # Symmetry for G -> I
-I -50 5 90 H  # Symmetry for H -> I
-I -50 5 65 L
-I -50 5 50 J1
-I -50 5 85 N
-J1 -70 5 50 I  # Symmetry for I -> J1
-J1 -70 5 65 L
-J1 -70 5 60 J2
-J1 -70 5 85 K
-J2 -78 -45 60 J1  # Symmetry for J1 -> J2
-J2 -78 -45 75 K
-K -90 5 85 J1  # Symmetry for J1 -> K
-K -90 5 75 J2  # Symmetry for J2 -> K
-K -90 5 110 U
-K -90 5 90 M
-L -53 -35 65 I  # Symmetry for I -> L
-L -53 -35 65 J1  # Symmetry for J1 -> L
-M -85 40 90 K  # Symmetry for K -> M
-M -85 40 70 N
-N -65 40 70 M  # Symmetry for M -> N
-N -65 40 85 I  # Symmetry for I -> N
-N -65 40 80 O
-O 8 40 90 E  # Symmetry for E -> O
-O 8 40 40 F  # Symmetry for F -> O
-O 8 40 80 N  # Symmetry for N -> O
-O 8 40 50 S
-O 8 40 70 P
-P 48 34 70 O  # Symmetry for O -> P
-P 48 34 80 D  # Symmetry for D -> P
-P 48 34 70 E  # Symmetry for E -> P
-P 48 34 45 Q
-P 48 34 50 S
-Q 62 34 45 P  # Symmetry for P -> Q
-Q 62 34 50 R
-Q 62 34 50 S
-R 93 34 50 Q  # Symmetry for Q -> R
-R 93 34 100 B  # Symmetry for B -> R
-R 93 34 60 C  # Symmetry for C -> R
-R 93 34 130 T
-R 93 34 50 S
-S 48 50 50 R  # Symmetry for R -> S
-S 48 50 50 O  # Symmetry for O -> S
-S 48 50 50 P  # Symmetry for P -> S
-S 48 50 50 Q  # Symmetry for Q -> S
-T 145 40 130 R  # Symmetry for R -> T
-T 145 40 170 A  # Symmetry for A -> T
-U -110 -18 110 K  # Symmetry for K -> U
+I -50 5 62 G  # Symmetry for G -> I --- 6
+I -50 5 90 H  # Symmetry for H -> I --- 17
+I -50 5 55 J1
+I -50 5 84 L
+I -50 5 108 N
+J1 -70 5 55 I  # Symmetry for I -> J1 --- 4
+J1 -70 5 86 J2
+J1 -70 5 60 K
+J1 -70 5 84 L
+J2 -78 -45 86 J1  # Symmetry for J1 -> J2 --- 13
+J2 -78 -45 98 K
+K -90 5 60 J1  # Symmetry for J1 -> K --- 5
+K -90 5 98 J2  # Symmetry for J2 -> K --- 22 
+K -90 5 110 M
+K -90 5 82 U
+L -53 -35 84 I  # Symmetry for I -> L --- 14
+L -53 -35 84 J1  # Symmetry for J1 -> L --- 12
+M -85 40 110 K  # Symmetry for K -> M --- 27
+M -85 40 68 N
+N -65 40 108 I  # Symmetry for I -> N --- 26
+N -65 40 68 M  # Symmetry for M -> N --- 7
+N -65 40 152 O
+O 8 40 100 E  # Symmetry for E -> O --- 23
+O 8 40 106 F  # Symmetry for F -> O --- 25
+O 8 40 152 N  # Symmetry for N -> O --- 35
+O 8 40 80 P
+O 8 40 95 S
+P 48 34 140 D  # Symmetry for D -> P --- 31
+P 48 34 130 E  # Symmetry for E -> P --- 30
+P 48 34 80 O  # Symmetry for O -> P --- 10
+P 48 34 50 Q
+P 48 34 92 S
+Q 62 34 50 P  # Symmetry for P -> Q --- 3
+Q 62 34 88 R
+Q 62 34 94 S
+R 93 34 124 B  # Symmetry for B -> R --- 29
+R 93 34 120 C  # Symmetry for C -> R --- 28
+R 93 34 88 Q  # Symmetry for Q -> R --- 16
+R 93 34 104 S
+R 93 34 148 T
+S 48 50 95 O  # Symmetry for O -> S --- 18
+S 48 50 92 P  # Symmetry for P -> S --- 19
+S 48 50 94 Q  # Symmetry for Q -> S --- 20
+S 48 50 104 R  # Symmetry for R -> S --- 24
+T 145 40 145 A  # Symmetry for A -> T --- 32
+T 145 40 148 R  # Symmetry for R -> T --- 33
+U -110 -18 82 K  # Symmetry for K -> U --- 11
 -1

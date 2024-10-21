@@ -3,6 +3,7 @@
 #include "FileHandling.h"
 #include "A*.h"
 #include "GBFS.h"
+#include <stdbool.h>
 
 #define MAX_ROWS 50
 #define MAX_COLS 50
@@ -61,6 +62,49 @@ void sampleData(int adjMatrix[MAX_ROWS][MAX_COLS],
         }
 }
 
+bool checkAdmissibility(int adjMatrix[MAX_ROWS][MAX_COLS], 
+                        Coordinates coords[MAX_ROWS], 
+                        int numVertices, char reference[MAX_ROWS][MAX_COLS]) {
+    bool admissible = true;  // Assume the heuristic is admissible
+
+    printf("\nChecking admissibility of heuristics...\n");
+
+    // Loop over all pairs of nodes
+    for (int i = 0; i < numVertices; i++) {
+        for (int j = 0; j < numVertices; j++) {
+            if (i != j && adjMatrix[i][j] != 0) {  // Only check connected nodes
+                // Calculate heuristic (Euclidean distance)
+                double heuristic = calculateEuclideanDistance(coords[i], coords[j]);
+                
+                // Get actual cost from adjacency matrix
+                int actualCost = adjMatrix[i][j];
+
+                // Check if the heuristic overestimates the actual cost
+                if (heuristic > actualCost) {
+                    char labelA = reverseIndexCheck(reference, i);
+                    char labelB = reverseIndexCheck(reference, j);
+                    printf("Heuristic from %c to %c is not admissible: h = %.2f, actual cost = %d\n", labelA, labelB, heuristic, actualCost);
+                    admissible = false;  // Set flag to false if heuristic is not admissible
+                }
+                else{
+                    char labelA = reverseIndexCheck(reference, i);
+                    char labelB = reverseIndexCheck(reference, j);
+                    float difference = actualCost-heuristic;
+                    printf("Heuristic from %c to %c is admissible: h = %.2f, actual cost = %d, difference = %.2f\n", labelA, labelB, heuristic, actualCost, difference);
+                }
+            }
+        }
+    }
+
+    if (admissible) {
+        printf("All heuristics are admissible.\n");
+    } else {
+        printf("Some heuristics are not admissible.\n");
+    }
+
+    return admissible;
+}
+
 int main() {
     char reference[MAX_ROWS][MAX_COLS];  // Stores the node names
     int adjMatrix[MAX_ROWS][MAX_COLS];   // Stores the edge weights (adjacency matrix)
@@ -75,7 +119,7 @@ int main() {
 
         // Display number of vertices
         printf("Number of vertices: %d\n\n", numVertices);
-         
+        sampleData(adjMatrix, coords, numVertices, reference); 
         printf("Enter the start node: ");
         scanf("%s", startNode);
         printf("Enter the goal node: ");
@@ -88,6 +132,15 @@ int main() {
         if (startIndex == -1 || goalIndex == -1) {
             printf("Invalid start or goal node.\n");
             return 1;
+        }
+
+        bool isAdmissible = checkAdmissibility(adjMatrix, coords, numVertices, reference);
+
+        if (!isAdmissible) {
+            printf("Heuristics are not admissible, check the distances and weights.\n");
+        } else {
+            printf("Heuristics are admissible, proceeding with algorithms.\n");
+            // Continue with BFS, DFS, A* and GBFS algorithms as usual
         }
 
         printf("\n================BLIND SEARCH===============\n");
