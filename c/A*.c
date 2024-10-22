@@ -127,6 +127,8 @@ void aStar(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS][MAX_COLS],
         }
             closedList[closedCount++] = currentNode;
 
+         printf("Processing node: %s\n", reference[currentNode]);    
+
         // Condition statement for if the current node is the goal, return the solution
         if (currentNode == goalIndex) {
             printf("Path found to the goal node.\n");
@@ -151,7 +153,7 @@ void aStar(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS][MAX_COLS],
                     // Calculate gCost, hCost, and fCost for successor
                     int gCost = nodeData[currentNode].gCost + adjMatrix[currentNode][successor];
                     int hCost = calculateEuclideanDistance(coords[successor], coords[goalIndex]);
-                    int fCost = gCost + hCost;
+                    float fCost = gCost + hCost;
              
                     //check if successor is in the open list:
                     int inOpen = 0;
@@ -175,6 +177,8 @@ void aStar(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS][MAX_COLS],
                         nodeData[successor].fCost = fCost;
                         nodeData[successor].parent = &nodeData[currentNode];
                         openList[openCount++] = successor;
+
+                        printf("Adding node: %s to open list with fCost: %.2f\n", reference[successor], fCost);
                     }
             }   
        }
