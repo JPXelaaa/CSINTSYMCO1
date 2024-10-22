@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "FileHandling.h"
+#include "BFS.h"
 #include "A*.h"
 #include "GBFS.h"
 #include <stdbool.h>
@@ -147,7 +148,7 @@ int main() {
         printf("\n================BLIND SEARCH===============\n");
         printf("\n-------------------------------------------\n");
         printf("\nBFS Algorithm Pathing: \n\n");
-        //BFS(); // ---> Please input BFS algorithm when finished here <---
+        BFS(reference, adjMatrix, numVertices, startIndex, goalIndex); //BFS ALGORITHM
         printf("\n-------------------------------------------\n");
 
         printf("\nDFS Algorithm Pathing: \n\n");
