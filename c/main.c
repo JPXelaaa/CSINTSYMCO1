@@ -2,6 +2,7 @@
 #include <string.h>
 #include "FileHandling.h"
 #include "BFS.h"
+#include "DFS.h"
 #include "A*.h"
 #include "GBFS.h"
 #include <stdbool.h>
@@ -152,7 +153,7 @@ int main() {
         printf("\n-------------------------------------------\n");
 
         printf("\nDFS Algorithm Pathing: \n\n");
-        //DFS(); // ---> Please input DFS algorithm when finished here <---
+        DFS(reference, adjMatrix, numVertices, startIndex, goalIndex); //DFS ALGORITHM
         printf("\n-------------------------------------------\n");
 
         printf("\n=============HEAURISTIC SEARCH=============\n");
