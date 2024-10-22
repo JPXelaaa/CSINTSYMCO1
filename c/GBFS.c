@@ -6,7 +6,7 @@
 
 #define MAX_NODES 50
 
-// good job !! <3 gets ko ung code kahet ganyan comments -phlip
+
 
 void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS][MAX_COLS], 
                            Coordinates coords[MAX_ROWS], 
@@ -14,34 +14,31 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
                            char reference[MAX_ROWS][MAX_COLS]) {
                             
     int openList[MAX_ROWS], closedList[MAX_ROWS] = {0}; // openList for neighbors, closedList for visited
-    int parent[MAX_ROWS]; // to keep track of the path
+    int parent[MAX_ROWS];
     int openListCount = 0;
     int currentNode;
-    int minIndex = 0; // index of node in openList with smallest heuristic
-    double minDistance; // smallest heuristic value in openList
+    int minIndex = 0; // Index of node in openList with smallest heuristic
+    double minDistance; // Smallest heuristic value in openList
     double distance;
 
-    //Variables por da calculation of da cost path
     float totalCostPath = 0;
     int fromNode;
     int toNode;
     float minutesTotalCostPath;
 
 	int i, j;
-	int finalPath[MAX_ROWS]; //contains the final path 
-    int pathLength = 0; //for counting the number of nodes in the final path
+	int finalPath[MAX_ROWS]; //Contains the final path
+    int pathLength = 0; //Counting number of nodes in the final path
     int isInOpenList = 0;
 	
-	openList[openListCount++] = startIndex; // u put da startIndex in da openList
-    parent[startIndex] = -1; // start node has no parent
-
-    printf("Debug: openListCount = %d\n", openListCount);
+	openList[openListCount++] = startIndex;
+    parent[startIndex] = -1; // Start node has no parent
 
     printf("Start Index: %s, Goal Index: %s\n", reference[startIndex], reference[goalIndex]);
     
     while (openListCount > 0) {
         // Find node in openList with the lowest heuristic value
-        minDistance = calculateEuclideanDistance(coords[openList[0]], coords[goalIndex]); // heuristic of start node
+        minDistance = calculateEuclideanDistance(coords[openList[0]], coords[goalIndex]); // Heuristic of start node
         minIndex = 0;
 
         for (i = 1; i < openListCount; i++) {
@@ -52,19 +49,19 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
             }
         }
 
-        // set current node to the node w the smallest heuristic
+        
         currentNode = openList[minIndex];
         printf("Current Node: %s, Min Distance: %.2f\n", reference[currentNode], minDistance);
 
-        // check if we have reached the goal
+        // Check if goal is reached
         if (currentNode == goalIndex) {
-            //printing of the path
+            
             for (j = goalIndex; j != -1; j = parent[j]) {
-                finalPath[pathLength++] = j; //collects the nodes of the path from the goal back to the start (backtracking toh in a way)
+                finalPath[pathLength++] = j; // Backtracking
             }
             printf("\nFinal Path: ");
             for (i = pathLength - 1; i >= 0; i--) {
-                printf("%s ", reference[finalPath[i]]); // should print them in the correct order now in letters (wah so cool)
+                printf("%s ", reference[finalPath[i]]);
             }
             printf("\n");
 
@@ -78,21 +75,20 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
 
             minutesTotalCostPath = totalCostPath/60;
             printf("\nTotal Cost of the Path: %.2f seconds (%.2f minutes)\n", totalCostPath, minutesTotalCostPath);
-            return; //path found wahoo
+            return; //Path Found
         }
 
-        // you place da currentNode from openList to closedList
-        closedList[currentNode] = 1; //make the 0 to 1 (boolean)
+        // Mark currentNode as visited
+        closedList[currentNode] = 1;
         for (i = minIndex; i < openListCount - 1; i++) {
-            openList[i] = openList[i + 1]; // remove da node from openList by moving the values to the left 
+            openList[i] = openList[i + 1];
         }
         openListCount--;
         
-        //exploring da neighbors of the current node nlang here loop yes
         
+        // Explore the neighbors
         for(i = 0; i < numVertices; i++){
             if(adjMatrix[currentNode][i] != 0 && !closedList[i]){
-                // add da neighbor sa openList if wala pa don
                 isInOpenList = 0;
                 for(j = 0; j < openListCount; j++){
                     if (openList[j] == i){
@@ -102,11 +98,11 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
                 }
                 if(!isInOpenList){
                     openList[openListCount++] = i;
-                    parent[i] = currentNode; // u set the parent of the current node
+                    parent[i] = currentNode;
                 }
             }
         }
     }
     
-    printf("goal aint found /in Chrytel voice"); // for accuracy - philip
+    printf("Goal Not Found");
 }
