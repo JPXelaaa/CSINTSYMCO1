@@ -1,8 +1,4 @@
 /*
-
-it woRKSS HENZLEY !! THNK U 
-
-
 Algorithm A-Star Pseudo Code
 
 Initialize OPEN list (to the empty list)
