@@ -66,7 +66,7 @@ void printSolutionPath(Node* goalNode, char reference[MAX_ROWS][MAX_COLS], float
     }
 
     // Print the path in reverse (from start to goal) with labels
-    printf("Path found: ");
+    printf("\nPath found: ");
     for (int i = pathLength - 1; i >= 0; i--) {
         printf("%s", reference[path[i]]);       // Print the node label using the reference array
         if (i > 0) 
@@ -76,7 +76,7 @@ void printSolutionPath(Node* goalNode, char reference[MAX_ROWS][MAX_COLS], float
 
     float minuteTotalCost = totalCost/60;
 
-    printf("Total actual cost: %.2f (%.2f minutes)\n", totalCost, minuteTotalCost);
+    printf("\nTotal actual cost: %.2f (%.2f minutes)\n", totalCost, minuteTotalCost);
 }
 
 void aStar(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS][MAX_COLS], 
