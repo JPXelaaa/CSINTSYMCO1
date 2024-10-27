@@ -96,6 +96,18 @@ void DFS(char reference[MAX_ROWS][MAX_COLS], int graph[MAX_ROWS][MAX_COLS], int 
             }
         }
         printf("\n");
+
+        float totalCostPath = 0;
+        for (int i = pathCount - 1; i > 0; i--) {
+            int fromNode = path[i];
+            int toNode = path[i - 1];
+            totalCostPath += graph[fromNode][toNode];
+        }
+
+        float minutesTotalCostPath = totalCostPath/60;
+        printf("\nTotal Cost of the Path: %.2f seconds (%.2f minutes)\n", totalCostPath, minutesTotalCostPath);
+
+
     } else {
         // If the goal node was not found
         printf("Goal node %s not reachable from %s\n", reference[goalIndex], reference[startIndex]);
