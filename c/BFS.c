@@ -2,7 +2,7 @@
 #include <string.h>
 #include "BFS.h"
 
-void backtrackPath(int parent[], int goalIndex, char reference[MAX_ROWS][MAX_COLS]) {
+void backtrackPath(int parent[], int goalIndex, int adjMatrix[MAX_ROWS][MAX_COLS], char reference[MAX_ROWS][MAX_COLS]) {
     int path[MAX_ROWS];
     int pathLength = 0;
     int currentIndex = goalIndex;
@@ -18,7 +18,17 @@ void backtrackPath(int parent[], int goalIndex, char reference[MAX_ROWS][MAX_COL
     for (int i = pathLength - 1; i >= 0; i--) {
         printf("%s ", reference[path[i]]);
     }
-    printf("\n");
+
+    float totalCostPath = 0;
+    for (int i = pathLength - 1; i > 0; i--) {
+        int fromNode = path[i];
+        int toNode = path[i - 1];
+        totalCostPath += adjMatrix[fromNode][toNode];
+    }
+
+    float minutesTotalCostPath = totalCostPath/60;
+    printf("\nTotal Cost of the Path: %.2f seconds (%.2f minutes)\n", totalCostPath, minutesTotalCostPath);
+    //return; //Path Found
 }
 
 void BFS(char reference[MAX_ROWS][MAX_COLS], int graph[MAX_ROWS][MAX_COLS], int numVertices, int startIndex, int goalIndex) {
@@ -53,7 +63,7 @@ void BFS(char reference[MAX_ROWS][MAX_COLS], int graph[MAX_ROWS][MAX_COLS], int 
         // Check if the goal node is reached
         if (currentIndex == goalIndex) {
             printf("Goal node %s found!\n", reference[goalIndex]);
-            backtrackPath(parent, goalIndex, reference); // Call backtracking here
+            backtrackPath(parent, goalIndex, graph, reference); // Call backtracking here
             return;  // Stop searching if the goal is found
         }
 
@@ -73,7 +83,7 @@ void BFS(char reference[MAX_ROWS][MAX_COLS], int graph[MAX_ROWS][MAX_COLS], int 
                 // If goal is directly reachable from currentIndex
                 parent[goalIndex] = currentIndex;
                 printf("Direct path to goal found through %s\n", reference[currentIndex]);
-                backtrackPath(parent, goalIndex, reference); // Call backtrack
+                backtrackPath(parent, goalIndex, graph, reference); // Call backtrack
                 return; // Exit after finding the direct path
             }
         }
