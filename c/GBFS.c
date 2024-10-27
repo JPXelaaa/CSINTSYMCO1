@@ -65,7 +65,9 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
             printf("\nFinal Path: ");
             for (i = pathLength - 1; i >= 0; i--)
             {
-                printf("%s ", reference[finalPath[i]]);
+                printf("%s", reference[finalPath[i]]);
+                if (i > 0) 
+                    printf(" -> ");
             }
             printf("\n");
 
