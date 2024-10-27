@@ -79,7 +79,7 @@ void DFS(char reference[MAX_ROWS][MAX_COLS], int graph[MAX_ROWS][MAX_COLS], int 
 
     // If the goal node was found, display the path
     if (visited[goalIndex]) {
-        printf("Path from %s to %s: ", reference[startIndex], reference[goalIndex]);
+        printf("\nPath from %s to %s: ", reference[startIndex], reference[goalIndex]);
         int path[MAX_ROWS];
         int pathCount = 0;
 
