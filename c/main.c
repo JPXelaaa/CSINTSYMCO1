@@ -156,7 +156,7 @@ int main() {
         DFS(reference, adjMatrix, numVertices, startIndex, goalIndex); //DFS ALGORITHM
         printf("\n-------------------------------------------\n");
 
-        printf("\n=============HEAURISTIC SEARCH=============\n");
+        printf("\n=============HEURISTIC SEARCH=============\n");
         printf("\n-------------------------------------------\n");
         printf("\nA* Algorithm Pathing: \n\n");
         aStar(startIndex, goalIndex, adjMatrix, coords, numVertices, reference); // A* STAR ALGORITHM
