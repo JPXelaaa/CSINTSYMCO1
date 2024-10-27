@@ -39,14 +39,12 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
     {
         // Find node in openList with the lowest heuristic value
         minDistance = calculateEuclideanDistance(coords[openList[0]], coords[goalIndex]); // Heuristic of start node
-        printf("minDistance: %f", minDistance);
-        printf("\n");
         minIndex = 0;
 
         for (i = 1; i < openListCount; i++)
         {
             distance = calculateEuclideanDistance(coords[openList[i]], coords[goalIndex]);
-            printf("Node to compare: %s, distance: %.2f\n", reference[openList[i]], distance);
+            printf("Comparing node %s with distance %.2f\n", reference[openList[i]], distance);
             if (distance < minDistance)
             {
                 minDistance = distance;
@@ -60,7 +58,6 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
         // Check if goal is reached
         if (currentNode == goalIndex)
         {
-
             for (j = goalIndex; j != -1; j = parent[j])
             {
                 finalPath[pathLength++] = j; // Backtracking
@@ -88,6 +85,9 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
 
         // Mark currentNode as visited
         closedList[currentNode] = 1;
+        printf("Visited Node: %s, Heuristic Value: %.2f\n", reference[currentNode], minDistance);
+
+        // Remove currentNode from openList
         for (i = minIndex; i < openListCount - 1; i++)
         {
             openList[i] = openList[i + 1];
@@ -99,6 +99,7 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
         {
             if (adjMatrix[currentNode][i] != 0 && !closedList[i])
             {
+                printf("Neighbor Node: %s, Checking if already in open list...\n", reference[i]);
                 isInOpenList = 0;
                 for (j = 0; j < openListCount; j++)
                 {
@@ -110,6 +111,7 @@ void greedyBestFirstSearch(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS
                 }
                 if (!isInOpenList)
                 {
+                    printf("Adding Node: %s to open list\n", reference[i]);
                     openList[openListCount++] = i;
                     parent[i] = currentNode;
                 }
