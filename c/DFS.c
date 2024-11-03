@@ -7,14 +7,14 @@ void DFS(char reference[MAX_ROWS][MAX_COLS], int graph[MAX_ROWS][MAX_COLS], int 
     int stack[MAX_ROWS];           // Stack for DFS
     int top = -1;                  // Top of the stack
     int currentIndex;
-
+    int i, j, v;
     // Array to track the order of visited nodes
     int visitedOrder[MAX_ROWS];
     int orderCount = 0;
 
     // Array to keep track of parents
     int parent[MAX_ROWS];
-    for (int i = 0; i < numVertices; i++) {
+    for (i = 0; i < numVertices; i++) {
         parent[i] = -1; // Initialize all parents to -1 (no parent)
     }
 
@@ -42,7 +42,7 @@ void DFS(char reference[MAX_ROWS][MAX_COLS], int graph[MAX_ROWS][MAX_COLS], int 
         int tempVertices[MAX_ROWS];
         int tempCount = 0;
 
-        for (int j = 0; j < numVertices; j++) {
+        for (j = 0; j < numVertices; j++) {
             if (graph[currentIndex][j] > 0 && !visited[j]) {  // There is a connection and it's unvisited
                 tempVertices[tempCount++] = j;  // Store the index of the adjacent node
                 parent[j] = currentIndex; // Set the parent of this node
@@ -50,8 +50,8 @@ void DFS(char reference[MAX_ROWS][MAX_COLS], int graph[MAX_ROWS][MAX_COLS], int 
         }
 
         // Sort the collected vertices alphabetically using Bubble Sort
-        for (int i = 0; i < tempCount - 1; i++) {
-            for (int j = 0; j < tempCount - i - 1; j++) {
+        for (i = 0; i < tempCount - 1; i++) {
+            for (j = 0; j < tempCount - i - 1; j++) {
                 if (strcmp(reference[tempVertices[j]], reference[tempVertices[j + 1]]) > 0) {
                     // Swap indices based on alphabetical order
                     int temp = tempVertices[j];
@@ -62,7 +62,7 @@ void DFS(char reference[MAX_ROWS][MAX_COLS], int graph[MAX_ROWS][MAX_COLS], int 
         }
 
         // Push sorted vertices onto the stack in reverse order (to visit them in alphabetical order)
-        for (int i = tempCount - 1; i >= 0; i--) {
+        for (i = tempCount - 1; i >= 0; i--) {
             int adjVertex = tempVertices[i];
             stack[++top] = adjVertex;  // Push the adjacent node onto the stack
             visited[adjVertex] = 1;     // Mark as visited
@@ -72,7 +72,7 @@ void DFS(char reference[MAX_ROWS][MAX_COLS], int graph[MAX_ROWS][MAX_COLS], int 
 
     // Print all visited nodes at the end
     printf("Visited nodes in order: ");
-    for (int i = 0; i < orderCount; i++) {
+    for (i = 0; i < orderCount; i++) {
         printf("%s ", reference[visitedOrder[i]]);
     }
     printf("\n");
@@ -84,12 +84,12 @@ void DFS(char reference[MAX_ROWS][MAX_COLS], int graph[MAX_ROWS][MAX_COLS], int 
         int pathCount = 0;
 
         // Reconstruct the path
-        for (int v = goalIndex; v != -1; v = parent[v]) {
+        for (v = goalIndex; v != -1; v = parent[v]) {
             path[pathCount++] = v;
         }
 
         // Print the path in reverse order
-        for (int i = pathCount - 1; i >= 0; i--) {
+        for (i = pathCount - 1; i >= 0; i--) {
             printf("%s", reference[path[i]]);
             if (i != 0) {
                 printf(" -> "); // Print arrow between nodes
@@ -98,7 +98,7 @@ void DFS(char reference[MAX_ROWS][MAX_COLS], int graph[MAX_ROWS][MAX_COLS], int 
         printf("\n");
 
         float totalCostPath = 0;
-        for (int i = pathCount - 1; i > 0; i--) {
+        for (i = pathCount - 1; i > 0; i--) {
             int fromNode = path[i];
             int toNode = path[i - 1];
             totalCostPath += graph[fromNode][toNode];

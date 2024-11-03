@@ -6,7 +6,7 @@ void backtrackPath(int parent[], int goalIndex, int adjMatrix[MAX_ROWS][MAX_COLS
     int path[MAX_ROWS];
     int pathLength = 0;
     int currentIndex = goalIndex;
-
+    int i;
     // Reconstruct the path from the goal to the start
     while (currentIndex != -1) {
         path[pathLength++] = currentIndex;
@@ -15,7 +15,7 @@ void backtrackPath(int parent[], int goalIndex, int adjMatrix[MAX_ROWS][MAX_COLS
 
     // Print the path from start to goal
     printf("\nShortest Path to goal: ");
-    for (int i = pathLength - 1; i >= 0; i--) {
+    for (i = pathLength - 1; i >= 0; i--) {
         printf("%s", reference[path[i]]);
         if (i > 0) 
             printf(" -> ");
@@ -23,7 +23,7 @@ void backtrackPath(int parent[], int goalIndex, int adjMatrix[MAX_ROWS][MAX_COLS
     printf("\n");
 
     float totalCostPath = 0;
-    for (int i = pathLength - 1; i > 0; i--) {
+    for (i = pathLength - 1; i > 0; i--) {
         int fromNode = path[i];
         int toNode = path[i - 1];
         totalCostPath += adjMatrix[fromNode][toNode];

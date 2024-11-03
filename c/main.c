@@ -3,7 +3,7 @@
 #include "FileHandling.h"
 #include "BFS.h"
 #include "DFS.h"
-#include "A*.h"
+#include "AStar.h"
 #include "GBFS.h"
 #include <stdbool.h>
 
@@ -30,11 +30,12 @@ void sampleData(int adjMatrix[MAX_ROWS][MAX_COLS],
                 Coordinates coords[MAX_ROWS], 
                 int numVertices, 
                 char reference[MAX_ROWS][MAX_COLS]){
-
+        
+        int i, j;
         // Example: Show Euclidean distance between two nodes (e.g., D and P)
         printf("Euclidean distances between connected nodes:\n");
-        for (int i = 0; i < numVertices; i++) {
-            for (int j = 0; j < numVertices; j++) {
+        for (i = 0; i < numVertices; i++) {
+            for (j = 0; j < numVertices; j++) {
                 if (adjMatrix[i][j] != 0) {  // If there's a connection (non-zero weight)
                     double distance = calculateEuclideanDistance(coords[i], coords[j]); 
                     printf("Distance between %s and %s: %.2f\n", reference[i], reference[j], distance);
@@ -47,17 +48,17 @@ void sampleData(int adjMatrix[MAX_ROWS][MAX_COLS],
         // Print column indices (header)
         printf("    ");  // Indentation for row labels
         char label[MAX_NAME_LEN];
-        for (int i = 0; i < numVertices; i++) {
+        for (i = 0; i < numVertices; i++) {
             getLabel(i, label);           // Get the label for the current index
             printf("%4s", label);         // Print the label with a width of 4 characters
         }
         printf("\n");
 
         // Print rows with labels and matrix data
-        for (int i = 0; i < numVertices; i++) {
+        for (i = 0; i < numVertices; i++) {
             getLabel(i, label);           // Get the label for the current row
             printf("%4s", label);         // Print the row label with a width of 4 characters
-            for (int j = 0; j < numVertices; j++) {
+            for (j = 0; j < numVertices; j++) {
                 printf("%4d", adjMatrix[i][j]);  // Print matrix elements with a width of 4 characters
             }
             printf("\n");
@@ -68,12 +69,12 @@ bool checkAdmissibility(int adjMatrix[MAX_ROWS][MAX_COLS],
                         Coordinates coords[MAX_ROWS], 
                         int numVertices, char reference[MAX_ROWS][MAX_COLS]) {
     bool admissible = true;  // Assume the heuristic is admissible
-
+    int i, j;
     printf("\nChecking admissibility of heuristics...\n");
 
     // Loop over all pairs of nodes
-    for (int i = 0; i < numVertices; i++) {
-        for (int j = 0; j < numVertices; j++) {
+    for (i = 0; i < numVertices; i++) {
+        for (j = 0; j < numVertices; j++) {
             if (i != j && adjMatrix[i][j] != 0) {  // Only check connected nodes
                 // Calculate heuristic (Euclidean distance)
                 double heuristic = calculateEuclideanDistance(coords[i], coords[j]);
@@ -115,6 +116,13 @@ int main() {
     int numVertices;                     // Number of vertices in the graph
     char startNode[MAX_NAME_LEN], goalNode[MAX_NAME_LEN];
     char startIndex, goalIndex;
+    int i, j;
+   
+    for (i = 0; i < MAX_ROWS; i++) {
+        for (j = 0; j < MAX_COLS; j++) {
+            reference[i][j] = 0; // Set each element to 0
+        }
+    }
 
     // Read from input file
     if (readIDsFromFile("GRAPHS.TXT", reference, adjMatrix, coords, &numVertices)) {
@@ -122,7 +130,7 @@ int main() {
 
         // Display number of vertices
         printf("Number of vertices: %d\n\n", numVertices);
-        sampleData(adjMatrix, coords, numVertices, reference); 
+        //sampleData(adjMatrix, coords, numVertices, reference); 
         printf("Enter the start node: ");
         scanf("%s", startNode);
         printf("Enter the goal node: ");
@@ -170,6 +178,11 @@ int main() {
     } else {
         printf("Error reading from file.\n");
     }
+
+    printf("\nPress any key to exit...");
+    getchar();  // Waits for Enter key press
+    getchar();
+    return 0;
 
     return 0;
 }

@@ -43,12 +43,13 @@ https://robotics.caltech.edu/wiki/images/e/e0/Astar.pdf
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-#include "A*.h"
+#include "AStar.h"
 #include "FileHandling.h"
 
 #define MAX_NODES 50
 
 void printSolutionPath(Node* goalNode, char reference[MAX_ROWS][MAX_COLS], float totalCost) {
+    int i;
      if (goalNode == NULL) {
         printf("No path found.\n");
         return;
@@ -67,7 +68,7 @@ void printSolutionPath(Node* goalNode, char reference[MAX_ROWS][MAX_COLS], float
 
     // Print the path in reverse (from start to goal) with labels
     printf("\nPath found: ");
-    for (int i = pathLength - 1; i >= 0; i--) {
+    for (i = pathLength - 1; i >= 0; i--) {
         printf("%s", reference[path[i]]);       // Print the node label using the reference array
         if (i > 0) 
             printf(" -> ");
@@ -87,9 +88,9 @@ void aStar(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS][MAX_COLS],
     int openList[MAX_NODES], closedList[MAX_NODES];
     Node nodeData[MAX_NODES];
     int openCount = 0, closedCount = 0; // Used for the counting of OPEN and CLOSED list contents
-
+    int i, j;
     // Initialize node data
-        for (int i = 0; i < numVertices; i++) {
+        for (i = 0; i < numVertices; i++) {
             nodeData[i].node = i;
             nodeData[i].gCost = 0;
             nodeData[i].hCost = 0;
@@ -110,7 +111,7 @@ void aStar(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS][MAX_COLS],
             int currentNode = openList[0];
             int currentIndex = 0;
 
-            for (int i = 1; i < openCount; i++) {
+            for (i = 1; i < openCount; i++) {
                 if (nodeData[openList[i]].fCost < nodeData[currentNode].fCost) {
                     currentNode = openList[i];
                     currentIndex = i;
@@ -118,7 +119,7 @@ void aStar(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS][MAX_COLS],
             }
         // remove current node from OPEN list and add it to CLOSED list
         openCount--;
-        for (int i = currentIndex; i < openCount; i++) {
+        for (i = currentIndex; i < openCount; i++) {
             openList[i] = openList[i + 1];
         }
             closedList[closedCount++] = currentNode;
@@ -132,13 +133,13 @@ void aStar(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS][MAX_COLS],
             return;
         }
     // This loop will generate over all node successors (neighbor nodes connected by edges)
-        for (int i = 0; i < numVertices; i++) {
+        for (i = 0; i < numVertices; i++) {
        
             if (adjMatrix[currentNode][i] > 0) { // There is an edge
                 int successor = i; 
                     // If node is in the CLOSED list, skip it
                     int inClosed = 0;
-                    for (int j = 0; j < closedCount; j++) {
+                    for (j = 0; j < closedCount; j++) {
                         if (closedList[j] == successor) {
                             inClosed = 1;
                             break;
@@ -153,7 +154,7 @@ void aStar(int startIndex, int goalIndex, int adjMatrix[MAX_ROWS][MAX_COLS],
              
                     //check if successor is in the open list:
                     int inOpen = 0;
-                    for (int j = 0; j < openCount; j++) {
+                    for (j = 0; j < openCount; j++) {
                         if (openList[j] == successor) {
                             inOpen = 1;
                               // If successor is not in the OPEN list or found a better path (lower fCost)
